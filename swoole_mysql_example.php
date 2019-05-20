@@ -3,11 +3,9 @@
 use Smf\ConnectionPool\ConnectionPool;
 use Smf\ConnectionPool\ConnectionPoolTrait;
 use Smf\ConnectionPool\Connectors\CoroutineMySQLConnector;
-use Smf\ConnectionPool\Connectors\PhpRedisConnector;
 use Swoole\Coroutine\MySQL;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
-use Swoole\Http\Server as ServerAlias;
 use Swoole\Http\Server;
 
 require 'vendor/autoload.php';
@@ -20,7 +18,7 @@ class HttpServer
 
     public function __construct(string $host, int $port)
     {
-        $this->swoole = new Server($host, $port);
+        $this->swoole = new Server($host, $port, SWOOLE_BASE);
 
         $this->setDefault();
         $this->bindWorkerEvents();
@@ -30,18 +28,8 @@ class HttpServer
     protected function setDefault()
     {
         $this->swoole->set([
-            'daemonize'             => false,
-            'dispatch_mode'         => 1,
-            'max_request'           => 8000,
-            'open_tcp_nodelay'      => true,
-            'reload_async'          => true,
-            'max_wait_time'         => 60,
-            'enable_reuse_port'     => true,
-            'enable_coroutine'      => true,
-            'http_compression'      => false,
-            'enable_static_handler' => false,
-            'buffer_output_size'    => 4 * 1024 * 1024,
-            'worker_num'            => 4, // Each worker holds a connection pool
+            'daemonize'             => true,
+            'worker_num'            => 8, // Each worker holds a connection pool
         ]);
     }
 
