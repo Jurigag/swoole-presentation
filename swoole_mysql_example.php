@@ -32,9 +32,14 @@ $http->on('request', function (\Swoole\Http\Request $request, \Swoole\Http\Respo
             ]
         );
         $pool->init();
-        $mysql = $pool->borrow();
         defer(function () use ($pool) {
+            echo "Closing connection pool\n";
             $pool->close();
+        });
+        $mysql = $pool->borrow();
+        defer(function () use ($pool, $mysql) {
+            echo "Returning the connection to pool\n";
+            $pool->return($mysql);
         });
         $result = $mysql->query('select * FROM users');
         $channel->push($result);
