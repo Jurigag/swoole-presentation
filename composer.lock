@@ -1,0 +1,58 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "c75f81794f5205f15b9941559ce23e26",
+    "content-hash": "26640a049bd6d6e4325d66d9796da8e1",
+    "packages": [
+        {
+            "name": "swoole/ide-helper",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/swoole/ide-helper.git",
+                "reference": "3b0b3e761580dd77c5c72c1c4424efd08053230c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/swoole/ide-helper/zipball/3b0b3e761580dd77c5c72c1c4424efd08053230c",
+                "reference": "3b0b3e761580dd77c5c72c1c4424efd08053230c",
+                "shasum": ""
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "~3.4.0",
+                "zendframework/zend-code": "~3.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Swoole\\IDEHelper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Team Swoole",
+                    "email": "team@swoole.com"
+                }
+            ],
+            "description": "IDE help files for Swoole.",
+            "time": "2019-04-25 07:05:36"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "swoole/ide-helper": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
