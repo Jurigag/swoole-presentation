@@ -11,8 +11,8 @@ $http->on('request', function (\Swoole\Http\Request $request, \Swoole\Http\Respo
     $mysql = new Swoole\Coroutine\MySQL();
     $mysql->connect([
         'host' => '127.0.0.1',
-        'user' => 'user',
-        'password' => 'pass',
+        'user' => 'root',
+        'password' => 'indahash',
         'database' => 'test',
     ]);
     $mysql->setDefer();
