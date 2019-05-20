@@ -9,43 +9,41 @@ $http->set([
     'worker_num' => 8
 ]);
 
-$http->on('request', function (\Swoole\Http\Request $request, \Swoole\Http\Response $response) {
-    $channel = new \Swoole\Coroutine\Channel(1);
-    go(function() use($channel) {
+$channel = new \Swoole\Coroutine\Channel(1);
 
+    go(function () use ($channel) {
         $pool = new \Smf\ConnectionPool\ConnectionPool([
-            'minActive'         => 1,
-            'maxActive'         => 18, // workes * maxActive
-            'maxWaitTime'       => 60,
-            'maxIdleTime'       => 20,
+            'minActive' => 1,
+            'maxActive' => 18, // workes * maxActive
+            'maxWaitTime' => 60,
+            'maxIdleTime' => 20,
             'idleCheckInterval' => 10,
         ],
             new \Smf\ConnectionPool\Connectors\CoroutineMySQLConnector(),
             [
-                'host'        => '127.0.0.1',
-                'port'        => '3306',
-                'user'        => 'root',
-                'password'    => 'indahash',
-                'database'    => 'test',
-                'timeout'     => 10,
-                'charset'     => 'utf8',
+                'host' => '127.0.0.1',
+                'port' => '3306',
+                'user' => 'root',
+                'password' => 'indahash',
+                'database' => 'test',
+                'timeout' => 10,
+                'charset' => 'utf8',
             ]
         );
         $pool->init();
-        defer(function () use ($pool) {
-            echo "Closing connection pool\n";
-            $pool->close();
-        });
         $mysql = $pool->borrow();
         defer(function () use ($pool, $mysql) {
             echo "Returning the connection to pool\n";
             $pool->return($mysql);
         });
-        $result = $mysql->query('select * FROM users');
-        $channel->push($result);
+        $channel->push($mysql);
     });
+
+$http->on('request', function (\Swoole\Http\Request $request, \Swoole\Http\Response $response) use($channel) {
     go(function() use ($channel, $response) {
-        $response->end(json_encode($channel->pop()));
+        $mysql = $channel->pop();
+        $result = $mysql->query('SELECT * from users');
+        $response->end($result);
     });
 });
 
