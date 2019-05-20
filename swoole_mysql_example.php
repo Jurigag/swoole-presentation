@@ -2,6 +2,8 @@
 
 use Swoole\Http\Server as ServerAlias;
 
+include('vendor/autoload.php');
+
 $http = new ServerAlias("0.0.0.0", 80);
 $http->set([
     'worker_num' => 8
