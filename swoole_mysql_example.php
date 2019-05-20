@@ -15,7 +15,6 @@ $http->on('request', function (\Swoole\Http\Request $request, \Swoole\Http\Respo
         'password' => 'indahash',
         'database' => 'test',
     ]);
-    var_dump($mysql->connect_error);
     $mysql->setDefer();
     $mysql->query('select * FROM users');
     $mysql_response = $mysql->recv();
