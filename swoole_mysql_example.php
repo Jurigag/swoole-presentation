@@ -32,10 +32,6 @@ $http->on('request', function (\Swoole\Http\Request $request, \Swoole\Http\Respo
             ]
         );
         $pool->init();
-        defer(function () use ($pool) {
-            echo "Closing connection pool\n";
-            $pool->close();
-        });
         $mysql = $pool->borrow();
         defer(function () use ($pool) {
             $pool->close();
