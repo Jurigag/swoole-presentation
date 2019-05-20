@@ -28,7 +28,6 @@ class HttpServer
     protected function setDefault()
     {
         $this->swoole->set([
-            'daemonize'             => true,
             'worker_num'            => 8, // Each worker holds a connection pool
         ]);
     }
@@ -54,7 +53,7 @@ class HttpServer
             // All MySQL connections: [4 workers * 2 = 8, 4 workers * 10 = 40]
             $pool1 = new ConnectionPool(
                 [
-                    'minActive' => 2,
+                    'minActive' => 5,
                     'maxActive' => 15,
                 ],
                 new CoroutineMySQLConnector,
