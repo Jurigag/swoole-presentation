@@ -1,5 +1,6 @@
 {
     "require": {
-        "swoole/ide-helper": "@dev"
+        "swoole/ide-helper": "@dev",
+        "open-smf/connection-pool": "~1.0"
     }
 }

@@ -4,9 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c75f81794f5205f15b9941559ce23e26",
-    "content-hash": "26640a049bd6d6e4325d66d9796da8e1",
+    "hash": "2db478be61d9a0e5eb452bb59513d87a",
+    "content-hash": "a0e5a2b685acfe0e802408e892d693a2",
     "packages": [
+        {
+            "name": "open-smf/connection-pool",
+            "version": "v1.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/open-smf/connection-pool.git",
+                "reference": "c3d7af0adafd1122fde6fe2e50b2c0f6e6db5666"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/open-smf/connection-pool/zipball/c3d7af0adafd1122fde6fe2e50b2c0f6e6db5666",
+                "reference": "c3d7af0adafd1122fde6fe2e50b2c0f6e6db5666",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-swoole": ">=4.2.9",
+                "php": ">=7.0.0"
+            },
+            "suggest": {
+                "ext-redis": "A PHP extension for Redis."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Smf\\ConnectionPool\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Xie Biao",
+                    "email": "hhxsv5@sina.com"
+                }
+            ],
+            "description": "A common connection pool based on Swoole is usually used as the database connection pool.",
+            "homepage": "https://github.com/open-smf/connection-pool",
+            "keywords": [
+                "connection-pool",
+                "database-connection-pool",
+                "swoole"
+            ],
+            "time": "2019-03-16 09:30:35"
+        },
         {
             "name": "swoole/ide-helper",
             "version": "dev-master",
