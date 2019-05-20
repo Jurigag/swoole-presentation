@@ -2,7 +2,7 @@
 
 use Swoole\Http\Server as ServerAlias;
 
-include('vendor/autoload.php');
+require 'vendor/autoload.php';
 
 $http = new ServerAlias("0.0.0.0", 80);
 $http->set([
