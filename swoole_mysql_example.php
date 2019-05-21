@@ -36,24 +36,27 @@ class HttpServer
     {
         $this->swoole->on('Request', function (Request $request, Response $response) {
             /**@var MySQL $mysql */
-            $channel = new \Swoole\Coroutine\Channel(10);
+            $channel = new \Swoole\Coroutine\Channel(50);
             go(function() use ($channel, $response) {
                 $result = [];
-                for($i=0;$i<10; $i++) {
-                    $result+= $channel->pop();
+                for($i=0;$i<50; $i++) {
+                    $result[] = $channel->pop();
                 }
                 $response->header('Content-Type', 'application/json');
                 $response->end(json_encode($result));
             });
             go(function () use ($channel) {
-                for ($i = 0; $i < 10; $i++) {
-                    $pool1 = $this->getConnectionPool('mysql');
-                    $mysql = $pool1->borrow();
-                    defer(function () use ($pool1, $mysql) {
-                        $pool1->return($mysql);
+                $pool1 = $this->getConnectionPool('mysql');
+                for ($i = 0; $i < 50; $i++) {
+                    go(function() use($channel, $pool1) {
+                        $mysql = $pool1->borrow();
+                        defer(function () use ($pool1, $mysql) {
+                            $pool1->return($mysql);
+                        });
+                        $from = ['users', 'users2', 'users3', 'users4', 'users5'];
+                        $result = $mysql->query("SELECT * FROM ".array_rand($from));
+                        $channel->push($result);
                     });
-                    $result = $mysql->query('SELECT * FROM users');
-                    $channel->push($result);
                 }
             });
         });
