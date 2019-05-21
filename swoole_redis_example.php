@@ -9,6 +9,8 @@ use Swoole\Http\Request;
 use Swoole\Http\Response;
 use Swoole\Http\Server;
 
+require 'vendor/autoload.php';
+
 const CORE_NUM = 1;
 const WORKER_PER_CORE = 2;
 const CONNECTION_LIMIT = 5000;
