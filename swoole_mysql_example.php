@@ -10,6 +10,9 @@ use Swoole\Http\Server;
 
 require 'vendor/autoload.php';
 
+const CORE_NUM = 1;
+const WORKER_PER_CORE = 2;
+
 class HttpServer
 {
     use ConnectionPoolTrait;
@@ -28,7 +31,7 @@ class HttpServer
     protected function setDefault()
     {
         $this->swoole->set([
-            'worker_num'            => 4, // Each worker holds a connection pool
+            'worker_num' => CORE_NUM * WORKER_PER_CORE, // Each worker holds a connection pool, recommended worker number is 1-4 x core number, 2 is most likely best
         ]);
     }
 
@@ -36,10 +39,10 @@ class HttpServer
     {
         $this->swoole->on('Request', function (Request $request, Response $response) {
             /**@var MySQL $mysql */
-            $channel = new \Swoole\Coroutine\Channel(50);
-            go(function() use ($channel, $response) {
+            $channel = new \Swoole\Coroutine\Channel(25);
+            go(function () use ($channel, $response) {
                 $result = [];
-                for($i=0;$i<50; $i++) {
+                for ($i = 0; $i < 25; $i++) {
                     $result[] = $channel->pop();
                 }
                 $response->header('Content-Type', 'application/json');
@@ -47,14 +50,14 @@ class HttpServer
             });
             go(function () use ($channel) {
                 $pool1 = $this->getConnectionPool('mysql');
-                for ($i = 0; $i < 50; $i++) {
-                    go(function() use($channel, $pool1) {
+                for ($i = 0; $i < 25; $i++) {
+                    go(function () use ($channel, $pool1) {
                         $mysql = $pool1->borrow();
                         defer(function () use ($pool1, $mysql) {
                             $pool1->return($mysql);
                         });
                         $from = ['users', 'users2', 'users3', 'users4', 'users5'];
-                        $result = $mysql->query("SELECT * FROM ".array_rand($from));
+                        $result = $mysql->query("SELECT * FROM " . $from[array_rand($from)]);
                         $channel->push($result);
                     });
                 }
@@ -69,19 +72,19 @@ class HttpServer
             $pool1 = new ConnectionPool(
                 [
                     'minActive' => 2,
-                    'maxActive' => 125,
+                    'maxActive' => floor(500/(CORE_NUM*WORKER_PER_CORE)),
                 ],
                 new CoroutineMySQLConnector,
                 [
-                    'host'        => '127.0.0.1',
-                    'port'        => '3306',
-                    'user'        => 'root',
-                    'password'    => 'indahash',
-                    'database'    => 'test',
-                    'timeout'     => 10,
-                    'charset'     => 'utf8',
+                    'host' => '127.0.0.1',
+                    'port' => '3306',
+                    'user' => 'root',
+                    'password' => 'indahash',
+                    'database' => 'test',
+                    'timeout' => 10,
+                    'charset' => 'utf8',
                     'strict_type' => true,
-                    'fetch_mode'  => true,
+                    'fetch_mode' => true,
                 ]);
             $pool1->init();
             $this->addConnectionPool('mysql', $pool1);
@@ -89,9 +92,9 @@ class HttpServer
         $closePools = function () {
             $this->closeConnectionPools();
         };
-        $this->swoole->on('WorkerStart', $createPools);
-        $this->swoole->on('WorkerStop', $closePools);
-        $this->swoole->on('WorkerError', $closePools);
+        $this->swoole->on('WorkerStart', $createPools); // create pools on worker start
+        $this->swoole->on('WorkerStop', $closePools); // close pools on worker stop
+        $this->swoole->on('WorkerError', $closePools); // close pools on worker error
     }
 
     public function start()
