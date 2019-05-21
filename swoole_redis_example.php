@@ -64,6 +64,8 @@ class HttpServer
                         }
                     });
                 }
+            });
+            defer(function() use ($channel) {
                 go(function () use ($channel) {
                     $pool = $this->getConnectionPool('redis');
                     for ($i = 0; $i < 10; $i++) {
