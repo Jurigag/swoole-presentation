@@ -52,7 +52,7 @@ class HttpServer
             });
             go(function () use ($channel) {
                 $pool1 = $this->getConnectionPool('redis');
-                for ($i = 0; $i < 100; $i++) {
+                for ($i = 0; $i < 10; $i++) {
                     go(function () use ($pool1, $i) {
                         $redis = $pool1->borrow();
                         defer(function () use ($pool1, $redis) {
