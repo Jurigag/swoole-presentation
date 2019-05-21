@@ -12,6 +12,7 @@ require 'vendor/autoload.php';
 
 const CORE_NUM = 1;
 const WORKER_PER_CORE = 2;
+const MYSQL_CONNECTION_LIMIT = 500;
 
 class HttpServer
 {
@@ -72,7 +73,7 @@ class HttpServer
             $pool1 = new ConnectionPool(
                 [
                     'minActive' => 2,
-                    'maxActive' => floor(500/(CORE_NUM*WORKER_PER_CORE)),
+                    'maxActive' => floor(MYSQL_CONNECTION_LIMIT/(CORE_NUM*WORKER_PER_CORE)),
                 ],
                 new CoroutineMySQLConnector,
                 [
