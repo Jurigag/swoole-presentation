@@ -90,7 +90,7 @@ class HttpServer
             $pool = new ConnectionPool(
                 [
                     'minActive' => 1,
-                    'maxActive' => floor(MYSQL_CONNECTION_LIMIT / (CORE_NUM * WORKER_PER_CORE)),
+                    'maxActive' => floor(CONNECTION_LIMIT / (CORE_NUM * WORKER_PER_CORE)),
                     'maxWaitTime' => 5,
                     'maxIdleTime' => 20,
                     'idleCheckInterval' => 10,
