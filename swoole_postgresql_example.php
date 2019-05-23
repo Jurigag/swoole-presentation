@@ -72,7 +72,7 @@ class HttpServer
             // All MySQL connections: [4 workers * 2 = 8, 4 workers * 10 = 40]
             $pool1 = new ConnectionPool(
                 [
-                    'minActive' => 2,
+                    'minActive' => 1,
                     'maxActive' => floor(MYSQL_CONNECTION_LIMIT/(CORE_NUM*WORKER_PER_CORE)),
                 ],
                 new \Smf\ConnectionPool\Connectors\CoroutinePostgreSQLConnector(),
