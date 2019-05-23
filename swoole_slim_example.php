@@ -3,6 +3,9 @@
 use Pachico\SlimSwoole\BridgeManager;
 use Slim\Http;
 
+const CORE_NUM = 1;
+const WORKER_PER_CORE = 2;
+
 require 'vendor/autoload.php';
 
 /**
@@ -34,6 +37,11 @@ $bridgeManager = new BridgeManager($app);
  * We start the Swoole server
  */
 $http = new Swoole\Http\Server("0.0.0.0", 80);
+
+$http->set([
+    'worker_num' => CORE_NUM * WORKER_PER_CORE,
+    'reactor_num' => CORE_NUM * WORKER_PER_CORE
+]);
 
 /**
  * We register the on "start" event

@@ -33,6 +33,7 @@ class HttpServer
     {
         $this->swoole->set([
             'worker_num' => CORE_NUM * WORKER_PER_CORE,
+            'reactor_num' => CORE_NUM * WORKER_PER_CORE
             // Each worker holds a connection pool, recommended worker number is 1-4 x core number, 2 is most likely best
         ]);
     }
