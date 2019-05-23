@@ -12,7 +12,7 @@ require 'vendor/autoload.php';
 
 const CORE_NUM = 1;
 const WORKER_PER_CORE = 2;
-const MYSQL_CONNECTION_LIMIT = 100;
+const MYSQL_CONNECTION_LIMIT = 97;
 
 class HttpServer
 {
@@ -104,6 +104,9 @@ class HttpServer
                 [
                     'minActive' => 1,
                     'maxActive' => floor(MYSQL_CONNECTION_LIMIT / (CORE_NUM * WORKER_PER_CORE)),
+                    'maxWaitTime'       => 30,
+                    'maxIdleTime'       => 5,
+                    'idleCheckInterval' => 5,
                 ],
                 new \Smf\ConnectionPool\Connectors\CoroutinePostgreSQLConnector(),
                 [
