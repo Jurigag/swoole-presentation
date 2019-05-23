@@ -6,7 +6,7 @@ go(function () use ($chan) {
     $result = [];
     for ($i = 0; $i < 2; $i++)
     {
-        $result += $chan->pop();
+        $result[] = $chan->pop();
     }
     var_dump($result);
 });
