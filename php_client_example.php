@@ -17,8 +17,16 @@ function request($url) {
 }
 
 $result = [];
-$code = request('www.google.com/');
+$code = request('www.google.com');
 $result[] = $code;
-$code = request('www.bing.com/');
+$code = request('www.bing.com');
+$result[] = $code;
+$code = request('www.indahash.com');
+$result[] = $code;
+$code = request('www.wykop.pl');
+$result[] = $code;
+$code = request('www.facebook.com');
+$result[] = $code;
+$code = request('www.onet.pl');
 $result[] = $code;
 var_dump($result);
