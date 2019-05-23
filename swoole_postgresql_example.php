@@ -77,15 +77,7 @@ class HttpServer
                 ],
                 new \Smf\ConnectionPool\Connectors\CoroutinePostgreSQLConnector(),
                 [
-                    'host' => 'db-postgresql-fra1-10918-do-user-1047222-0.db.ondigitalocean.com',
-                    'port' => '25061',
-                    'user' => 'doadmin',
-                    'password' => 'ghs91r5le9l8t2zc',
-                    'database' => 'Pool1',
-                    'timeout' => 10,
-                    'charset' => 'utf8',
-                    'strict_type' => true,
-                    'fetch_mode' => true,
+                    'connection_strings' => 'host=db-postgresql-fra1-10918-do-user-1047222-0.db.ondigitalocean.com port=25061 dbname=Pool1 user=doadmin password=ghs91r5le9l8t2zc',
                 ]);
             $pool1->init();
             $this->addConnectionPool('mysql', $pool1);
