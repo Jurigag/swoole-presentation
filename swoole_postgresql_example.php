@@ -58,7 +58,7 @@ class HttpServer
                         $pool1->return($mysql);
                     });
                     $result = $mysql->query("SELECT * FROM users");
-                    $channel->push($mysql->fetchAssoc($result));
+                    $channel->push($mysql->fetcAll($result));
                 });
                 go(function () use ($channel, $pool1) {
                     $mysql = $pool1->borrow();
@@ -66,7 +66,7 @@ class HttpServer
                         $pool1->return($mysql);
                     });
                     $result = $mysql->query("SELECT * FROM users2");
-                    $channel->push($mysql->fetchAssoc($result));
+                    $channel->push($mysql->fetcAll($result));
                 });
                 go(function () use ($channel, $pool1) {
                     $mysql = $pool1->borrow();
@@ -74,7 +74,7 @@ class HttpServer
                         $pool1->return($mysql);
                     });
                     $result = $mysql->query("SELECT * FROM users3");
-                    $channel->push($mysql->fetchAssoc($result));
+                    $channel->push($mysql->fetcAll($result));
                 });
                 go(function () use ($channel, $pool1) {
                     $mysql = $pool1->borrow();
@@ -82,7 +82,7 @@ class HttpServer
                         $pool1->return($mysql);
                     });
                     $result = $mysql->query("SELECT * FROM users4");
-                    $channel->push($mysql->fetchAssoc($result));
+                    $channel->push($mysql->fetcAll($result));
                 });
                 go(function () use ($channel, $pool1) {
                     $mysql = $pool1->borrow();
@@ -90,7 +90,7 @@ class HttpServer
                         $pool1->return($mysql);
                     });
                     $result = $mysql->query("SELECT * FROM users5");
-                    $channel->push($mysql->fetchAssoc($result));
+                    $channel->push($mysql->fetcAll($result));
                 });
             });
         });
