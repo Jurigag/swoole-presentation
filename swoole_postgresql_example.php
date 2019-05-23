@@ -12,7 +12,7 @@ require 'vendor/autoload.php';
 
 const CORE_NUM = 1;
 const WORKER_PER_CORE = 2;
-const MYSQL_CONNECTION_LIMIT = 22;
+const MYSQL_CONNECTION_LIMIT = 500;
 
 class HttpServer
 {
