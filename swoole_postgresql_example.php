@@ -12,7 +12,7 @@ require 'vendor/autoload.php';
 
 const CORE_NUM = 1;
 const WORKER_PER_CORE = 2;
-const MYSQL_CONNECTION_LIMIT = 500;
+const MYSQL_CONNECTION_LIMIT = 100;
 
 class HttpServer
 {
@@ -32,7 +32,8 @@ class HttpServer
     protected function setDefault()
     {
         $this->swoole->set([
-            'worker_num' => CORE_NUM * WORKER_PER_CORE, // Each worker holds a connection pool, recommended worker number is 1-4 x core number, 2 is most likely best
+            'worker_num' => CORE_NUM * WORKER_PER_CORE,
+            // Each worker holds a connection pool, recommended worker number is 1-4 x core number, 2 is most likely best
         ]);
     }
 
@@ -40,10 +41,10 @@ class HttpServer
     {
         $this->swoole->on('Request', function (Request $request, Response $response) {
             /**@var MySQL $mysql */
-            $channel = new \Swoole\Coroutine\Channel(25);
+            $channel = new \Swoole\Coroutine\Channel(5);
             go(function () use ($channel, $response) {
                 $result = [];
-                for ($i = 0; $i < 25; $i++) {
+                for ($i = 0; $i < 5; $i++) {
                     $result[] = $channel->pop();
                 }
                 $response->header('Content-Type', 'application/json');
@@ -51,17 +52,46 @@ class HttpServer
             });
             go(function () use ($channel) {
                 $pool1 = $this->getConnectionPool('mysql');
-                for ($i = 0; $i < 25; $i++) {
-                    go(function () use ($channel, $pool1) {
-                        $mysql = $pool1->borrow();
-                        defer(function () use ($pool1, $mysql) {
-                            $pool1->return($mysql);
-                        });
-                        $from = ['users', 'users2', 'users3', 'users4', 'users5'];
-                        $result = $mysql->query("SELECT * FROM " . $from[array_rand($from)]);
-                        $channel->push($result);
+                go(function () use ($channel, $pool1) {
+                    $mysql = $pool1->borrow();
+                    defer(function () use ($pool1, $mysql) {
+                        $pool1->return($mysql);
                     });
-                }
+                    $result = $mysql->query("SELECT * FROM users");
+                    $channel->push($result);
+                });
+                go(function () use ($channel, $pool1) {
+                    $mysql = $pool1->borrow();
+                    defer(function () use ($pool1, $mysql) {
+                        $pool1->return($mysql);
+                    });
+                    $result = $mysql->query("SELECT * FROM users2");
+                    $channel->push($result);
+                });
+                go(function () use ($channel, $pool1) {
+                    $mysql = $pool1->borrow();
+                    defer(function () use ($pool1, $mysql) {
+                        $pool1->return($mysql);
+                    });
+                    $result = $mysql->query("SELECT * FROM users3");
+                    $channel->push($result);
+                });
+                go(function () use ($channel, $pool1) {
+                    $mysql = $pool1->borrow();
+                    defer(function () use ($pool1, $mysql) {
+                        $pool1->return($mysql);
+                    });
+                    $result = $mysql->query("SELECT * FROM users4");
+                    $channel->push($result);
+                });
+                go(function () use ($channel, $pool1) {
+                    $mysql = $pool1->borrow();
+                    defer(function () use ($pool1, $mysql) {
+                        $pool1->return($mysql);
+                    });
+                    $result = $mysql->query("SELECT * FROM users5");
+                    $channel->push($result);
+                });
             });
         });
     }
@@ -73,7 +103,7 @@ class HttpServer
             $pool1 = new ConnectionPool(
                 [
                     'minActive' => 1,
-                    'maxActive' => floor(MYSQL_CONNECTION_LIMIT/(CORE_NUM*WORKER_PER_CORE)),
+                    'maxActive' => floor(MYSQL_CONNECTION_LIMIT / (CORE_NUM * WORKER_PER_CORE)),
                 ],
                 new \Smf\ConnectionPool\Connectors\CoroutinePostgreSQLConnector(),
                 [
