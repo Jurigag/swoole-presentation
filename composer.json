@@ -1,6 +1,10 @@
 {
     "require": {
         "swoole/ide-helper": "4.3.3",
-        "open-smf/connection-pool": "~1.0"
+        "open-smf/connection-pool": "~1.0",
+        "slim/slim": "^3.12"
+    },
+    "require-dev": {
+        "pachico/slim-swoole": "^0.2.0"
     }
 }
