@@ -12,7 +12,7 @@ require 'vendor/autoload.php';
 
 const CORE_NUM = 1;
 const WORKER_PER_CORE = 2;
-const MYSQL_CONNECTION_LIMIT = 500;
+const MYSQL_CONNECTION_LIMIT = 22;
 
 class HttpServer
 {
@@ -75,13 +75,13 @@ class HttpServer
                     'minActive' => 2,
                     'maxActive' => floor(MYSQL_CONNECTION_LIMIT/(CORE_NUM*WORKER_PER_CORE)),
                 ],
-                new CoroutineMySQLConnector,
+                new \Smf\ConnectionPool\Connectors\CoroutinePostgreSQLConnector(),
                 [
-                    'host' => '127.0.0.1',
-                    'port' => '3306',
-                    'user' => 'root',
-                    'password' => 'indahash',
-                    'database' => 'test',
+                    'host' => 'db-postgresql-fra1-10918-do-user-1047222-0.db.ondigitalocean.com',
+                    'port' => '25061',
+                    'user' => 'doadmin',
+                    'password' => 'ghs91r5le9l8t2zc',
+                    'database' => 'Pool1',
                     'timeout' => 10,
                     'charset' => 'utf8',
                     'strict_type' => true,

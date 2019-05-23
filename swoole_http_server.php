@@ -15,4 +15,5 @@ $http->on('request', function (\Swoole\Http\Request $request, \Swoole\Http\Respo
     $response->end("<h1>Hello World</h1>");
 });
 
+\Swoole\Runtime::enableCoroutine();
 $http->start();

@@ -1,1 +1,3 @@
 <?php
+
+\Swoole\Runtime::enableCoroutine();

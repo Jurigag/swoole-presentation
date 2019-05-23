@@ -126,5 +126,6 @@ class HttpServer
     }
 }
 
+\Swoole\Runtime::enableCoroutine();
 $server = new HttpServer('0.0.0.0', 80);
 $server->start();
