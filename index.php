@@ -23,3 +23,4 @@ $app->any('/test/{random}', function (Http\Request $request, Http\Response $resp
 
     return $response->withJson($data);
 });
+$app->run();
