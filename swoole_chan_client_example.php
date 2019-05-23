@@ -45,50 +45,50 @@ go(function () use ($chan) {
     $cli = new Swoole\Coroutine\Http\Client('www.indahash.com', 80);
     $cli->set(['timeout' => 10]);
     $cli->setHeaders([
-        'Host' => "www.bing.com",
+        'Host' => "www.indahash.com",
         "User-Agent" => 'Chrome/49.0.2587.3',
         'Accept' => 'text/html,application/xhtml+xml,application/xml',
         'Accept-Encoding' => 'gzip',
     ]);
     $ret = $cli->get('/');
-    $chan->push(['www.bing.com' => $cli->statusCode]);
+    $chan->push(['www.indahash.com' => $cli->statusCode]);
 });
 
 go(function () use ($chan) {
     $cli = new Swoole\Coroutine\Http\Client('www.wykop.pl', 80);
     $cli->set(['timeout' => 10]);
     $cli->setHeaders([
-        'Host' => "www.bing.com",
+        'Host' => "www.wykop.pl",
         "User-Agent" => 'Chrome/49.0.2587.3',
         'Accept' => 'text/html,application/xhtml+xml,application/xml',
         'Accept-Encoding' => 'gzip',
     ]);
     $ret = $cli->get('/');
-    $chan->push(['www.bing.com' => $cli->statusCode]);
+    $chan->push(['www.wykop.pl' => $cli->statusCode]);
 });
 
 go(function () use ($chan) {
     $cli = new Swoole\Coroutine\Http\Client('www.facebook.com', 80);
     $cli->set(['timeout' => 10]);
     $cli->setHeaders([
-        'Host' => "www.bing.com",
+        'Host' => "www.facebook.com",
         "User-Agent" => 'Chrome/49.0.2587.3',
         'Accept' => 'text/html,application/xhtml+xml,application/xml',
         'Accept-Encoding' => 'gzip',
     ]);
     $ret = $cli->get('/');
-    $chan->push(['www.bing.com' => $cli->statusCode]);
+    $chan->push(['www.facebook.com' => $cli->statusCode]);
 });
 
 go(function () use ($chan) {
     $cli = new Swoole\Coroutine\Http\Client('www.onet.pl', 80);
     $cli->set(['timeout' => 10]);
     $cli->setHeaders([
-        'Host' => "www.bing.com",
+        'Host' => "www.onet.pl",
         "User-Agent" => 'Chrome/49.0.2587.3',
         'Accept' => 'text/html,application/xhtml+xml,application/xml',
         'Accept-Encoding' => 'gzip',
     ]);
     $ret = $cli->get('/');
-    $chan->push(['www.bing.com' => $cli->statusCode]);
+    $chan->push(['www.onet.pl' => $cli->statusCode]);
 });
