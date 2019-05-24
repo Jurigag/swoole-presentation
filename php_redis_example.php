@@ -17,4 +17,4 @@ for ($i = 0; $i < 10; $i++) {
         $result[] = $redis->get($key . $i);
     }
 }
-echo json_encode($result);
+print_r($result);
