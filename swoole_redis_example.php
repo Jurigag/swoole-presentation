@@ -8,7 +8,7 @@ use Smf\ConnectionPool\Connectors\CoroutineRedisConnector;
 $pool = new ConnectionPool(
     [
         'minActive' => 1,
-        'maxActive' => floor(CONNECTION_LIMIT / (CORE_NUM * WORKER_PER_CORE)),
+        'maxActive' => 1000,
         'maxWaitTime' => 5,
         'maxIdleTime' => 20,
         'idleCheckInterval' => 10,
