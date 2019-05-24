@@ -64,7 +64,7 @@ $http->on("start", function (\Swoole\Http\Server $server) {
 $http->on(
     "request",
     function (\Swoole\Http\Request $swooleRequest, \Swoole\Http\Response $swooleResponse) use ($bridgeManager) {
-        $bridgeManager->process($swooleRequest, $swooleResponse)->end();
+        $bridgeManager->process($swooleRequest, $swooleResponse);
     }
 );
 

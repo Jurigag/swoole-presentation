@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+    "hash": "9de8090a2b39f8f515254a8cf49d3fec",
     "content-hash": "e53ff8534d89e0ac90400abcdd811b52",
     "packages": [
         {
@@ -35,7 +36,7 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "homepage": "https://github.com/container-interop/container-interop",
-            "time": "2017-02-14T19:40:03+00:00"
+            "time": "2017-02-14 19:40:03"
         },
         {
             "name": "nikic/fast-route",
@@ -81,7 +82,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2018-02-13T20:26:39+00:00"
+            "time": "2018-02-13 20:26:39"
         },
         {
             "name": "open-smf/connection-pool",
@@ -128,7 +129,7 @@
                 "database-connection-pool",
                 "swoole"
             ],
-            "time": "2019-03-16T09:30:35+00:00"
+            "time": "2019-03-16 09:30:35"
         },
         {
             "name": "pimple/pimple",
@@ -178,7 +179,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2018-01-21T07:42:36+00:00"
+            "time": "2018-01-21 07:42:36"
         },
         {
             "name": "psr/container",
@@ -227,7 +228,7 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2017-02-14T16:28:37+00:00"
+            "time": "2017-02-14 16:28:37"
         },
         {
             "name": "psr/http-message",
@@ -277,7 +278,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2016-08-06 14:39:51"
         },
         {
             "name": "slim/slim",
@@ -348,7 +349,7 @@
                 "micro",
                 "router"
             ],
-            "time": "2019-04-16T16:47:29+00:00"
+            "time": "2019-04-16 16:47:29"
         },
         {
             "name": "swoole/ide-helper",
@@ -385,7 +386,7 @@
                 }
             ],
             "description": "IDE help files for Swoole.",
-            "time": "2019-04-20T03:21:42+00:00"
+            "time": "2019-04-20 03:21:42"
         }
     ],
     "packages-dev": [
@@ -439,7 +440,7 @@
                 "psr-7",
                 "psr7"
             ],
-            "time": "2016-03-28T09:10:18+00:00"
+            "time": "2016-03-28 09:10:18"
         },
         {
             "name": "pachico/slim-swoole",
@@ -494,7 +495,7 @@
                 "pachico",
                 "slim-swoole"
             ],
-            "time": "2018-09-21T06:18:20+00:00"
+            "time": "2018-09-21 06:18:20"
         }
     ],
     "aliases": [],
