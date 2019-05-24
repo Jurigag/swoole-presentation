@@ -29,13 +29,6 @@ $pool = new ConnectionPool(
 $pool->init();
 \Swoole\Runtime::enableCoroutine();
 $channel = new \Swoole\Coroutine\Channel(100);
-go(function () use ($channel) {
-    $result = [];
-    for ($i = 0; $i < 100; $i++) {
-        $result[] = $channel->pop();
-    }
-    var_dump($result);
-});
 go(function () use ($channel, $pool) {
     for ($i = 0; $i < 10; $i++) {
         go(function () use ($pool, $i) {
@@ -63,4 +56,13 @@ go(function() use($channel,$pool) {
             }
         });
     }
+});
+Swoole\Event::wait();
+go(function () use ($channel) {
+    $result = [];
+    for ($i = 0; $i < 100; $i++) {
+        $result[] = $channel->pop();
+    }
+    var_dump($result);
+    die();
 });
