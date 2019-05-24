@@ -5,6 +5,6 @@
         "slim/slim": "^3.12"
     },
     "require-dev": {
-        "Jurigag/slim-swoole": "dev-master#bec7858"
+        "Jurigag/slim-swoole": "dev-master#598c6f2"
     }
 }
