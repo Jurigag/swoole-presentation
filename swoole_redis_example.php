@@ -5,6 +5,7 @@ require 'vendor/autoload.php';
 use Smf\ConnectionPool\ConnectionPool;
 use Smf\ConnectionPool\Connectors\CoroutineRedisConnector;
 
+\Swoole\Runtime::enableCoroutine();
 $pool = new ConnectionPool(
     [
         'minActive' => 1,
