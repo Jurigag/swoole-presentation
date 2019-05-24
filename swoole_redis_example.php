@@ -60,6 +60,7 @@ go(function() use($channel,$pool) {
 go(function () use ($channel) {
     $result = [];
     for ($i = 0; $i < 100; $i++) {
+        var_dump($channel->pop());
         $result[] = $channel->pop();
     }
     var_dump($result);
