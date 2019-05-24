@@ -56,13 +56,13 @@ go(function () use ($channel, $pool) {
         });
     }
 });
-go(function () use ($channel) {
+go(function () use ($channel, $pool) {
     $result = [];
     for ($i = 0; $i < 100; $i++) {
         $result[] = $channel->pop();
     }
     print_r($result);
-    defer(function() {
-       echo 'end';
+    defer(function() use ($pool) {
+       $pool->close();
     });
 });
