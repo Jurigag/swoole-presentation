@@ -2,11 +2,11 @@
 
 use Swoole\Coroutine\Http\Client;
 
-$chan = new chan(54);
+$chan = new chan(42);
 
 go(function () use ($chan) {
     $result = [];
-    for ($i = 0; $i < 54; $i++)
+    for ($i = 0; $i < 42; $i++)
     {
         $result[] = $chan->pop();
     }
