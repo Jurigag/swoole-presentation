@@ -1,5 +1,7 @@
 <?php
 
+require 'vendor/autoload.php';
+
 use Smf\ConnectionPool\ConnectionPool;
 use Smf\ConnectionPool\Connectors\CoroutineRedisConnector;
 
