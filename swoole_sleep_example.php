@@ -2,10 +2,12 @@
 
 \Swoole\Runtime::enableCoroutine();
 go(function(){
-    echo 'a';
-    sleep(1);
+    while(true) {
+        echo 'a';
+    }
 });
 go(function(){
-    echo 'b';
-    sleep(2);
+    while(true) {
+        echo 'b';
+    }
 });
