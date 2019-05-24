@@ -36,7 +36,6 @@ go(function () use ($channel) {
     var_dump($result);
 });
 go(function () use ($channel, $pool) {
-    ;
     for ($i = 0; $i < 10; $i++) {
         go(function () use ($pool, $i) {
             $redis = $pool->borrow();
@@ -49,18 +48,18 @@ go(function () use ($channel, $pool) {
             }
         });
     }
-});
-defer(function () use ($channel, $pool) {
-    for ($i = 0; $i < 10; $i++) {
-        go(function () use ($channel, $pool, $i) {
-            $redis = $pool->borrow();
-            defer(function () use ($pool, $redis) {
-                $pool->return($redis);
+    defer(function () use ($channel, $pool) {
+        for ($i = 0; $i < 10; $i++) {
+            go(function () use ($channel, $pool, $i) {
+                $redis = $pool->borrow();
+                defer(function () use ($pool, $redis) {
+                    $pool->return($redis);
+                });
+                $keys = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
+                foreach ($keys as $key) {
+                    $channel->push($redis->get($key . $i));
+                }
             });
-            $keys = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
-            foreach ($keys as $key) {
-                $channel->push($redis->get($key . $i));
-            }
-        });
-    }
+        }
+    });
 });
