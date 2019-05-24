@@ -57,7 +57,6 @@ go(function() use($channel,$pool) {
         });
     }
 });
-Swoole\Event::wait();
 go(function () use ($channel) {
     $result = [];
     for ($i = 0; $i < 100; $i++) {
