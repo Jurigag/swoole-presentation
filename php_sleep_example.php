@@ -12,5 +12,6 @@ function sleep2()
     sleep(2);
 }
 
+echo PHP_EOL;
 sleep1();
 sleep2();
