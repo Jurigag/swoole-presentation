@@ -34,6 +34,7 @@ go(function () use ($channel) {
         $result[] = $channel->pop();
     }
     var_dump($result);
+    exit();
 });
 go(function () use ($channel, $pool) {
     for ($i = 0; $i < 10; $i++) {
