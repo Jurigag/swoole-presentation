@@ -27,7 +27,6 @@ $pool = new ConnectionPool(
     ]
 );
 $pool->init();
-\Swoole\Runtime::enableCoroutine();
 $channel = new \Swoole\Coroutine\Channel(100);
 go(function () use ($channel, $pool) {
     for ($i = 0; $i < 10; $i++) {
@@ -43,7 +42,7 @@ go(function () use ($channel, $pool) {
         });
     }
 });
-go(function() use($channel,$pool) {
+go(function () use ($channel, $pool) {
     for ($i = 0; $i < 10; $i++) {
         go(function () use ($channel, $pool, $i) {
             $redis = $pool->borrow();
@@ -63,4 +62,7 @@ go(function () use ($channel) {
         $result[] = $channel->pop();
     }
     print_r($result);
+    defer(function() {
+       echo 'end';
+    });
 });
