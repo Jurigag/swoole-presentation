@@ -10,6 +10,5 @@ go(function(){
 go(function(){
     while(true) {
         echo 'b';
-        sleep(2);
     }
 });
